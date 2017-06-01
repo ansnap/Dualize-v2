@@ -1,0 +1,58 @@
+{% extends 'DualizeUserBundle::layout.html.twig' %}
+
+{% block title %}Соционический форум{% endblock %}
+
+{% block content %}
+
+<div id="forums-index">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Форумы</th>
+                <th>Последнее сообщение</th>
+                <th>Тем</th>
+                <th>Сообщений</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for section in forums if not section[0].parent %}
+            <tr class="active">
+                <td colspan="4">{{ section[0].title }}</td>
+            </tr>
+
+            {% for item in forums if item[0].parent == section[0] %}
+            {% set forum = item[0] %}
+            <tr>
+                <td><a href="{{ path('forum_view', {'id': forum.id}) }}">{{ forum.title }}</a><br> &ndash; {{ forum.description }}</td>
+                <td>
+                {% if forum.topics|first and forum.topics|first.posts|first %}
+                    {% set topic = forum.topics|first %}
+
+                    <a href="{{ path('forum_topic_last_post', {id: topic.id}) }}" title="К последнему сообщению">
+                        {{ topic.title[:30] ~ (topic.title|length > 30 ? '...' : '')}}
+                    </a><br>
+
+                    {{ topic.posts|first.createdAt|localizeddate('none', 'none', null, null, 'd.MM.Y в HH:mm') }} 
+                    
+                    от 
+                    
+                    {% if topic.posts|first.poster %}
+                        <a href="{{ path('profile_view', {id: topic.posts|first.poster.id}) }}">
+                            {{ topic.posts|first.poster.name }}
+                        </a>
+                    {% else %}
+                        <span>Пользователь удален</span>
+                    {% endif %}
+                {% endif %}
+                </td>
+                <td>{{ item[1] }}</td>
+                <td>{{ item[3] }}</td>
+            </tr>
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+{% endblock %}
+

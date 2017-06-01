@@ -1,0 +1,23 @@
+{% extends 'DualizeUserBundle::layout.html.twig' %}
+
+{% block title %}Вход на сайт{% endblock %}
+
+{% import 'DualizeUserBundle:User:login_form.html.twig' as login_form %}
+
+{% block content %}
+
+<div class="row">
+	<div class="col-sm-4 col-sm-offset-4">
+		<h4>Вход на сайт</h4>
+		
+		{% include 'BraincraftedBootstrapBundle::flash.html.twig' %}
+		
+		{% if error %}
+			<div class="alert alert-danger">{{ error.message|trans }}</div>
+		{% endif %}
+
+		{{ login_form.view('', last_email) }}
+	</div>
+</div>
+	
+{% endblock %}

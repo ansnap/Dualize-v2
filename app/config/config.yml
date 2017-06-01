@@ -1,0 +1,197 @@
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+
+services:
+    session.memcache:
+        class: Memcache
+        calls:
+             - [ addServer, [ %session_memcache_host%, %session_memcache_port% ]]
+ 
+    session.handler.memcache:
+        class: Symfony\Component\HttpFoundation\Session\Storage\Handler\MemcacheSessionHandler
+        arguments: [ @session.memcache, { prefix: %session_memcache_prefix%, expiretime: %session_memcache_expire% } ]
+ 
+framework:
+    #esi:             ~
+    translator:      { fallback: %locale% }
+    secret:          %secret%
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form:            ~
+    csrf_protection: ~
+    validation:      { enable_annotations: true }
+    templating:
+        engines: ['twig']
+        #assets_version: SomeVersionScheme
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    session:
+        handler_id: session.handler.memcache
+    fragments:       ~
+    http_method_override: true
+
+# Twig Configuration
+twig:
+    debug:            %kernel.debug%
+    strict_variables: %kernel.debug%
+
+# Assetic Configuration
+assetic:
+    debug:          %kernel.debug%
+    use_controller: false
+    bundles:        [ DualizeUserBundle, DualizeUserSearchBundle, DualizeUserMessageBundle, DualizeBBCodeBundle, DualizeForumBundle ]
+    #java: /usr/bin/java
+    filters:
+        # To process less files (Bootstrap bundle)
+        less:
+            node: /usr/bin/node
+            node_paths: [/usr/lib/node_modules]
+            apply_to: "\.less$"
+        # Symfony rule
+        cssrewrite: ~
+        #closure:
+        #    jar: %kernel.root_dir%/Resources/java/compiler.jar
+        #yui_css:
+        #    jar: %kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar
+    # Custom preparing files (Bootstrap bundle)
+    assets:
+        bootstrap_css:
+            inputs:
+                - %kernel.root_dir%/Resources/less/bootstrap.less
+            filters:
+                - less
+                - cssrewrite
+            output: css/bootstrap.css
+        bootstrap_js:
+            inputs:
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/transition.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/alert.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/button.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/carousel.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/collapse.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/dropdown.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/modal.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/tooltip.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/popover.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/scrollspy.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/tab.js
+                - %kernel.root_dir%/../vendor/twbs/bootstrap/js/affix.js
+                - %kernel.root_dir%/../vendor/braincrafted/bootstrap-bundle/Braincrafted/Bundle/BootstrapBundle/Resources/js/bc-bootstrap-collection.js
+            output: js/bootstrap.js
+
+# Doctrine Configuration
+doctrine:
+    dbal:
+        driver:   %database_driver%
+        host:     %database_host%
+        port:     %database_port%
+        dbname:   %database_name%
+        user:     %database_user%
+        password: %database_password%
+        charset:  UTF8
+        # if using pdo_sqlite as your database driver, add the path in parameters.yml
+        # e.g. database_path: %kernel.root_dir%/data/data.db3
+        # path:     %database_path%
+
+    orm:
+        auto_generate_proxy_classes: %kernel.debug%
+        auto_mapping: true
+
+# Swiftmailer Configuration
+swiftmailer:
+    transport:	smtp
+
+# Liip_imagine Configuration
+liip_imagine:
+    web_root:	%kernel.root_dir%/../web
+    data_root:	%kernel.root_dir%/../web
+    filter_sets:
+        # Types
+        icon:
+            quality:	100
+            filters:
+                thumbnail: { size: [40, 40], mode: outbound }
+        avatar:
+            quality:	100
+            filters:
+                thumbnail: { size: [100, 100], mode: outbound }
+        profile:
+            quality: 100
+            filters:
+                thumbnail: { size: [200, 300], mode: inset }
+            
+# Gaufrette engine (file abstraction level)
+knp_gaufrette:
+    adapters:
+        profile_photos_adapter:
+            local:
+                directory: %kernel.root_dir%/../web/uploads/images/profile
+
+    filesystems:
+        profile_photos_fs:
+            adapter:	profile_photos_adapter
+            
+# Pagination
+knp_paginator:
+    page_range: 5                      # default page range used in pagination control
+    default_options:
+        page_name: page                # page query parameter name
+        sort_field_name: sort          # sort field query parameter name
+        sort_direction_name: direction # sort direction query parameter name
+        distinct: true                 # ensure distinct results, useful when ORM queries are using GROUP BY statements
+
+# Bootstrap integration
+braincrafted_bootstrap:
+    jquery_path: %kernel.root_dir%/../src/Dualize/UserBundle/Resources/public/js/jquery-2.1.0.min.js
+    less_filter: less
+    auto_configure:
+        assetic: false
+    customize:
+        variables_file: %kernel.root_dir%/../src/Dualize/UserBundle/Resources/public/less/variables.less
+
+# OAuth login
+hwi_oauth:
+    firewall_name: main
+    resource_owners:
+        vkontakte:
+            type:                vkontakte
+            client_id:           4310245
+            client_secret:       capT1cZosODPjFVO80Ro
+            scope: email
+            infos_url:     "https://api.vk.com/method/users.get?v=5.21&fields=sex,bdate,photo_max,city"
+            user_response_class: Dualize\UserBundle\OAuth\Response\VkontakteUserResponse
+        facebook:
+            type:                facebook
+            client_id:           1487917904752920
+            client_secret:       3879d7c1e7e3c20c0056d5d634da6c72
+            scope: user_birthday,user_location
+            infos_url:     "https://graph.facebook.com/me?fields=name,email,picture.width(400).height(400),birthday,gender,location"
+            user_response_class: Dualize\UserBundle\OAuth\Response\FacebookUserResponse
+    http_client:
+        timeout:       10 # Time in seconds, after library will shutdown request, by default: 5
+        verify_peer:   false # Setting allowing you to turn off SSL verification, by default: true
+        ignore_errors: false # Setting allowing you to easier debug request errors, by default: true
+        max_redirects: 1 # Number of HTTP redirection request after which library will shutdown request, by default: 5
+  
+# Recaptcha
+ewz_recaptcha:
+    public_key:  6LegNgYTAAAAABJPLkUxWqrdFXxIGgmGXVOAItP_
+    private_key: 6LegNgYTAAAAAEU2vnpmP_0Jy35THagp2fIndiDF
+    locale_key:  %kernel.default_locale%
+        
+# My settings
+dualize_user:
+    token_ttl: 3 day
+    max_photos: 10
+    inactive_user_ttl: 3 day
+dualize_user_message:
+    load_list_limit: 100
+dualize_forum:
+    posts_per_page: 30
+    topics_per_page: 50
+    edit_time: 15 minute
+dualize_notification:
+    message_user_visit: 30 minute
+    message_pause: 1 day

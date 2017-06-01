@@ -1,0 +1,16 @@
+{% extends 'DualizeUserBundle::layout.html.twig' %}
+
+{% block head %}
+
+{{ parent() }}
+{% include 'DualizeBBCodeBundle::includes/bbcode_include.html.twig' %}
+
+{% javascripts 'bundles/dualizeforum/js/forum.js' %}
+<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+
+{% endblock %}
+
+{% block hidden_elements %}
+{{ bbcode_panel() }}
+{% endblock %}

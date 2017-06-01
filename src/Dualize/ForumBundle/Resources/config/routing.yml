@@ -1,0 +1,79 @@
+forums_index:
+    pattern:  /forums
+    defaults: { _controller: DualizeForumBundle:Index:view }
+
+forum_view:
+    pattern:  /forums/f{id}/{page}
+    defaults: { _controller: DualizeForumBundle:Forum:view, id: '', page: 1 }
+    requirements:
+        id: \d+
+        page:   \d+
+        
+forum_topics_move:
+    pattern:  /forums/t/move/f{id}
+    defaults: { _controller: DualizeForumBundle:Forum:moveTopics, id: '' }
+    requirements:
+        id: \d+
+        
+forum_topics_delete:
+    pattern:  /forums/t/delete
+    defaults: { _controller: DualizeForumBundle:Forum:deleteTopics }
+        
+forum_topic:
+    pattern:  /forums/t{id}/{page}
+    defaults: { _controller: DualizeForumBundle:Topic:view, id: '', page: 1 }
+    requirements:
+        id: \d+
+        page:   \d+
+
+forum_topic_last_post:
+    pattern:  /forums/t{id}/last_post
+    defaults: { _controller: DualizeForumBundle:Topic:lastPost }
+    requirements:
+        id: \d+
+        
+forum_topic_delete:
+    pattern:  /forums/t{id}/delete
+    defaults: { _controller: DualizeForumBundle:Topic:delete }
+    requirements:
+        id: \d+
+        
+forum_topic_move:
+    pattern:  /forums/t{id}/move
+    defaults: { _controller: DualizeForumBundle:Topic:move }
+    requirements:
+        id: \d+
+        
+forum_topic_rename:
+    pattern:  /forums/t{id}/rename
+    defaults: { _controller: DualizeForumBundle:Topic:rename }
+    requirements:
+        id: \d+
+
+forum_post:
+    pattern:  /forums/p{id}
+    defaults: { _controller: DualizeForumBundle:Post:view }
+    requirements:
+        id: \d+
+
+forum_post_edit:
+    pattern:  /forums/p{id}/edit
+    defaults: { _controller: DualizeForumBundle:Post:edit }
+    requirements:
+        id: \d+
+        
+forum_post_create:
+    pattern:  /forums/p/create/t{id}
+    defaults: { _controller: DualizeForumBundle:Post:create }
+    requirements:
+        id: \d+
+
+forum_posts_delete:
+    pattern:  /forums/p/delete
+    defaults: { _controller: DualizeForumBundle:Post:deletePosts }
+
+forum_recent_posts:
+    pattern:  /forums/p/recent/{offset}
+    defaults: { _controller: DualizeForumBundle:Post:recentPosts, offset: 0 }
+    requirements:
+        id: \d+

@@ -1,0 +1,96 @@
+{% extends 'DualizeUserBundle::layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+    {% include 'DualizeUserBundle::includes/select2_include.html.twig' %}
+{% endblock %}
+
+{% block title %}Поиск участников сайта{% endblock %}
+
+{% block content %}
+
+    <script type="text/javascript" src="{{ asset('bundles/dualizeusersearch/js/user_search.js') }}"></script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            userSearchInit('{{ path('user_search_select_location') }}');
+        });
+    </script>
+
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <h4 class="panel-title">
+                <a data-toggle="collapse" data-parent="#accordion" href="#collapseSearch">
+                    Параметры поиска
+                </a>
+            </h4>
+        </div>
+        <div id="collapseSearch" class="panel-collapse collapse {% if not is_saved_search %}in{% endif %}">
+            <div class="panel-body">
+                {{ form_start(form) }}
+                {{ form_errors(form, { 'global_errors': true }) }}
+                <div class="row">
+                    <div class="col-sm-6">
+                        {{ form_row(form.gender) }}
+                        {{ form_row(form.sociotype) }}
+                        {{ form_row(form.hasPhoto) }}
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                {{ form_row(form.ageFrom) }}
+                            </div>
+                            <div class="col-sm-6">
+                                {{ form_row(form.ageTo) }}
+                            </div>
+                        </div>
+                        {{ form_row(form.locationId) }}
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+
+    {% if applicants.getTotalItemCount > 0 %}
+        <div class="found-applicants list-group row">
+
+            {% for applicant in applicants %}
+                <div class="col-sm-6">
+
+                    <a href="{{ path('profile_view', { id: applicant.id }) }}" class="list-group-item clearfix">
+                        {% if applicant.photos|first %}
+                            {% set img_src = applicant.photos|first.fullPath %}
+                        {% else %}
+                            {% set img_src = 'bundles/dualizeuser/img/no_photo.png' %}
+                        {% endif %}
+                        <img src="{{ img_src|imagine_filter('avatar') }}" class="img-thumbnail pull-left" />
+
+                        <h4 class="list-group-item-heading">{{ applicant.name }}</h4>
+
+                        <p class="list-group-item-text">
+                            {% if applicant.profile.sociotype %}
+                            <div>{{ applicant.profile.sociotype.title }}</div>
+                        {% endif %}
+
+                        {% if applicant.profile.age %}
+                            <div>{{ applicant.profile.age }}</div>
+                        {% endif %}
+
+                        {% if applicant.profile.city %}
+                            <div>{{ applicant.profile.city.name }}, {{ applicant.profile.city.country.name }}</div>
+                        {% endif %}
+                        </p>
+                    </a>
+                </div>
+            {% endfor %}
+            <div class="pagination">
+                {{ knp_pagination_render(applicants) }}
+            </div>
+        </div>
+    {% else %}
+        <p>По данному запросу участников не нашлось. :(</p> 
+        <p>Попробуйте расширить критерии поиска. Или зайдите позже, когда появятся новые участники, а также пригласите друзей и знакомых.</p>
+    {% endif %}
+
+{% endblock %}

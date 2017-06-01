@@ -1,0 +1,43 @@
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /connect
+
+vkontakte_login:
+    pattern: /login/check-vkontakte
+
+facebook_login:
+    pattern: /login/check-facebook
+
+dualize_notification:
+    resource: "@DualizeNotificationBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dualize_bb_code:
+    resource: "@DualizeBBCodeBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dualize_forum:
+    resource: "@DualizeForumBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dualize_user_message:
+    resource: "@DualizeUserMessageBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dualize_user_search:
+    resource: "@DualizeUserSearchBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dualize_socio:
+    resource: "@DualizeSocioBundle/Resources/config/routing.yml"
+    prefix:   /
+
+dualize_user:
+    resource: "@DualizeUserBundle/Resources/config/routing.yml"
+    prefix:   /
+    
+_imagine:
+    resource: .
+    type:	imagine
+
+

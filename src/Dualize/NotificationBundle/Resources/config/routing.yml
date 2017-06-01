@@ -1,0 +1,3 @@
+dualize_notification_homepage:
+    pattern:  /helloy/
+    defaults: { _controller: DualizeNotificationBundle:Notification:message }

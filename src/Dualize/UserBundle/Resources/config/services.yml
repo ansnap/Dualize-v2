@@ -1,0 +1,48 @@
+parameters:
+#    dualize_user.example.class: Dualize\UserBundle\Example
+
+services:
+#    dualize_user.example:
+#        class: %dualize_user.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+
+    # To process uploading images and delete them when entity is added or deleted
+    dualize_user.profile.photo_uploader:
+        class: Dualize\UserBundle\EventListener\PhotoSubscriber
+        arguments:	['@kernel']
+        tags:
+            - { name: doctrine.event_subscriber }
+    # 1) Delete Dialog when all participants were deleted
+    # 2) Remove plain password and set encoded password
+    dualize_user.user:
+        class: Dualize\UserBundle\EventListener\UserSubscriber
+        arguments: ['@service_container', '@security.encoder_factory']
+        tags:
+            - { name: doctrine.event_subscriber }
+    # Tokens
+    dualize_user.token:
+        class: Dualize\UserBundle\EventListener\TokenSubscriber
+        arguments: ['@service_container']
+        tags:
+            - { name: doctrine.event_subscriber }
+    # Add custom field, where city id is converted to city object
+    dualize_user.profile_edit.city_selector:
+        class: Dualize\UserBundle\Form\Field\CitySelectorType
+        arguments: ['@doctrine.orm.entity_manager']
+        tags:
+            - { name: form.type, alias: city_selector }
+    # Localize dates inside twig
+    twig.extension.intl:
+        class: Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+    # Update user's last visit field on each request
+    dualize_user.user.each_request:
+        class: Dualize\UserBundle\EventListener\EachRequestListener
+        arguments: ['@doctrine.orm.entity_manager', '@security.context', '@session']
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onRequest, priority: -1 }
+    # OAuth login
+    dualize_user.oauth_user_provider:
+        class: Dualize\UserBundle\OAuth\OAuthProvider
+        arguments: ['@doctrine.orm.entity_manager']

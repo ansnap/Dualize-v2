@@ -1,0 +1,34 @@
+<li class="media 
+    {% if dialog.messages.first.isNew and dialog.messages.first.sender != user %}new{% endif %}" 
+    data-dialog-id="{{ dialog.id }}"
+>
+    {% if dialog.users.count == 1 %}
+        <span class="user-name">Пользователь удален</span>
+        <img src="{{ 'bundles/dualizeuser/img/no_photo.png'|imagine_filter('icon') }}" class="img-thumbnail pull-left" />
+    {% else %}
+        {% for recipient in dialog.users if recipient != user %}
+            <a href="{{ path('profile_view', { 'id': recipient.id }) }}" class="user-name">{{ recipient.name }}</a>
+            <a href="{{ path('profile_view', { 'id': recipient.id }) }}" class="thumbnail pull-left">
+                {% if recipient.photos|first %}
+                    <img src="{{ recipient.photos|first.fullPath|imagine_filter('icon') }}" />
+                {% else %}
+                    <img src="{{ 'bundles/dualizeuser/img/no_photo.png'|imagine_filter('icon') }}" />
+                {% endif %}
+            </a>
+        {% endfor %}
+    {% endif %}
+    <div class="media-body">
+        <a href="#{{ dialog.id }}" class="list-group-item">
+            {% if dialog.messages.first %}
+                <small class="text-muted">
+                    <span class="glyphicon glyphicon-arrow-{% if dialog.messages.first.sender == user %}right{% else %}left{% endif %}"></span>
+                    {{ dialog.messages.first.viewCreatedAt }}
+                    <span title="Есть новые сообщения" class="glyphicon glyphicon-comment"></span>
+                </small>
+                <div class="last-message">
+                    {{ dialog.messages.first.content|length > 80 ? dialog.messages.first.content|slice(0, 80) ~ '...' : dialog.messages.first.content }}
+                </div>
+            {% endif %}
+        </a>
+    </div>
+</li>

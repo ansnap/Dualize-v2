@@ -1,0 +1,7 @@
+parameters:
+#    dualize_notification.example.class: Dualize\NotificationBundle\Example
+
+services:
+#    dualize_notification.example:
+#        class: %dualize_notification.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

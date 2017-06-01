@@ -1,0 +1,8 @@
+bbcode_upload_image:
+    pattern:  /bbcode/upload_image
+    defaults: { _controller: DualizeBBCodeBundle:BBCode:uploadImage }
+    
+bbcode_preview:
+    pattern:  /bbcode/preview
+    defaults: { _controller: DualizeBBCodeBundle:BBCode:preview }
+    

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html>
+    <head>
+	{% block head %}
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+		<title>{% block title %}Dualize - соционическая социальная сеть{% endblock %}</title>
+		
+        <script type="text/javascript">
+            {% if app.user %}        
+                var _USER_ID = {{ app.user.id }};
+            {% endif %}
+        </script>
+        
+		{% javascripts 
+			'bundles/dualizeuser/js/jquery-2.1.0.min.js'
+			'bundles/dualizeuser/js/autobahn.min.js'
+			'bundles/dualizeusermessage/js/realtime_events.js'
+            'bundles/dualizeusermessage/js/messages.js'
+			'js/bootstrap.js' %}
+			<script type="text/javascript" src="{{ asset_url }}"></script>
+		{% endjavascripts %}
+
+		{% stylesheets
+			'bundles/dualizeuser/css/user.css'
+			'css/bootstrap.css'
+			filter='cssrewrite' %}
+			<link rel="stylesheet" href="{{ asset_url }}" />
+		{% endstylesheets %}
+	{% endblock %}
+	</head>
+	<body class="{% block body_classes %}{% endblock %}">
+        
+		<div id="wrap">
+			<nav class="navbar navbar-default" role="navigation">
+				<div class="container">
+					<!-- Brand and toggle get grouped for better mobile display -->
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#top-navbar-collapse">
+							<span class="sr-only">Развернуть/Свернуть меню</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="{{ path('home') }}" title="Соционическая социальная сеть"></a>
+					</div>
+
+					<!-- Collect the nav links, forms, and other content for toggling -->
+					<div class="collapse navbar-collapse" id="top-navbar-collapse">
+					{% block menu %}
+
+						<!-- Different right part for user and guest -->
+						{% if app.user %}
+							{{ knp_menu_render('DualizeUserBundle:Builder:mainUserMenu', { 'style': 'navbar-right', 'allow_safe_labels': true }) }}
+						{% else %}
+							<ul class="nav navbar-nav navbar-right">
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown">
+										<span class="glyphicon glyphicon-log-in"></span> Войти <strong class="caret"></strong>
+									</a>
+									<div class="dropdown-menu login-form">
+										{% import 'DualizeUserBundle:User:login_form.html.twig' as login_form %}
+										{{ login_form.view('form-signin', '', true) }}
+									</div>
+								</li>
+							</ul>
+							{{ knp_menu_render('DualizeUserBundle:Builder:mainGuestMenu', { 'style': 'navbar-right' }) }}
+						{% endif %}
+
+					{% endblock %}
+					</div><!-- /.navbar-collapse -->
+				</div>
+			</nav>
+
+			<div class="container">
+				<div class="panel panel-default">
+					<div class="panel-body">
+						{% block content %}{% endblock %}
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div id="footer">
+		{% block footer %}
+			<div class="container">
+				<p class="text-muted pull-left">&copy; {{ 'now'|date('Y') }} <a href="http://dualize.ru">Dualize.ru</a></p>
+                                <p class="text-muted pull-right">
+                                    По вопросам - 
+                                    info<span class="hidden">check</span>&#64;<span class="hidden">correct.</span>dualize.ru
+                                </p>
+			</div>
+		{% endblock %}
+		</div>
+        
+        <audio src="{{ asset('bundles/dualizeusermessage/audio/new-message.mp3') }}" autostart="false" width="0" height="0" id="new-message-sound"></audio>
+		
+		{# Tools #}
+		<!-- Yandex.Metrika counter -->
+		<script type="text/javascript">
+		(function (d, w, c) {
+			(w[c] = w[c] || []).push(function() {
+				try {
+					w.yaCounter23407447 = new Ya.Metrika({id:23407447,
+							clickmap:true,
+							trackLinks:true,
+							accurateTrackBounce:true});
+				} catch(e) { }
+			});
+
+			var n = d.getElementsByTagName("script")[0],
+				s = d.createElement("script"),
+				f = function () { n.parentNode.insertBefore(s, n); };
+			s.type = "text/javascript";
+			s.async = true;
+			s.src = (d.location.protocol === "https:" ? "https:" : "http:") + "//mc.yandex.ru/metrika/watch.js";
+
+			if (w.opera === "[object Opera]") {
+				d.addEventListener("DOMContentLoaded", f, false);
+			} else { f(); }
+		})(document, window, "yandex_metrika_callbacks");
+		</script>
+		<noscript><div><img src="//mc.yandex.ru/watch/23407447" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+		<!-- /Yandex.Metrika counter -->
+        
+        {% block hidden_elements %}{% endblock %}
+		
+	</body>
+</html>

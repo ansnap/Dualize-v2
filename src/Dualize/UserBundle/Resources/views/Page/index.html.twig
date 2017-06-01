@@ -1,0 +1,61 @@
+{% extends 'DualizeUserBundle::layout.html.twig' %}
+
+{% block head %}
+    {{ parent() }}
+
+    {% javascripts 'bundles/dualizeuser/js/homepage.js' %}
+    <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+
+    {% include 'DualizeBBCodeBundle::includes/bbcode_include.html.twig' %}
+{% endblock %}
+
+{% block body_classes %}homepage{% endblock %}
+
+{% block hidden_elements %}
+    {{ bbcode_panel() }}
+{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        {% if not app.user %}
+
+            <div class="col-sm-6 col-sm-offset-3">
+                <p>
+                    <b>Dualize.ru</b> - это соционическая социальная сеть для:
+                </p>
+
+                <ul>
+                    <li>общения</li>
+                    <li>знакомств с дуалами</li>
+                    <li>изучения соционики</li>
+                </ul>
+
+                <p>Добро пожаловать! :)</p>
+
+                {% include 'DualizeUserBundle:User:login_with.html.twig' %}
+
+                <p class="text-center">или <a href="{{ path('register') }}">зарегистрироваться</a></p>
+
+                <img src="{{ asset('bundles/dualizeuser/img/welcome_girl.jpg') }}" class="img-responsive">
+            </div>
+
+        {% else %}
+
+            <div class="col-sm-9 forum-feed">
+                <h4>Лента форума</h4>
+                <ul class="forum-posts media-list" data-action-url="{{ path('forum_recent_posts') }}">
+                    {{ render(controller('DualizeForumBundle:Post:recentPosts')) }}
+                </ul>
+            </div>
+            <div class="col-sm-3">
+                <div class="whoisonline" data-action-url="{{ path('whoisonline') }}">
+                    {{ render(controller('DualizeUserBundle:User:whoIsOnline')) }}
+                </div>
+            </div>
+
+        {% endif %}
+    </div>
+
+{% endblock %}

@@ -1,0 +1,12 @@
+parameters:
+#    dualize_forum.example.class: Dualize\ForumBundle\Example
+
+services:
+#    dualize_forum.example:
+#        class: %dualize_forum.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    dualize_forum.post:
+        class: Dualize\ForumBundle\EventListener\PostSubscriber
+        arguments: ['@service_container']
+        tags:
+            - { name: doctrine.event_subscriber }

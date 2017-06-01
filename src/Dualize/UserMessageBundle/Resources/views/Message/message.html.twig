@@ -1,0 +1,36 @@
+<li class="media 
+    {% if message.isNew %}new{% endif %} 
+    {% if message.sender == user or not message.sender %}sent{% else %}recieved{% endif %} 
+    {% if first_message is defined and message == first_message %}first{% endif %}" 
+    data-message-id="{{ message.id }}"
+>
+    {% if message.sender %}
+        <a href="{{ path('profile_view', { 'id': message.sender.id }) }}" class="pull-left">
+            {% if message.sender.photos|first %}
+                <img src="{{ message.sender.photos|first.fullPath|imagine_filter('icon') }}" class="img-rounded" />
+            {% else %}
+                <img src="{{ 'bundles/dualizeuser/img/no_photo.png'|imagine_filter('icon') }}" class="img-rounded" />
+            {% endif %}
+        </a>
+    {% else %}
+        <img src="{{ 'bundles/dualizeuser/img/no_photo.png'|imagine_filter('icon') }}" class="img-rounded pull-left" />
+    {% endif %}
+    <div class="media-body">
+        <div class="pull-left">
+            {% if message.sender %}
+                <a href="{{ path('profile_view', { 'id': message.sender.id }) }}" class="user-name">
+                    {{ message.sender.name }}
+                </a>
+            {% else %}
+                <span class="user-name">Пользователь удален</span>
+            {% endif %}
+        </div>
+        <div class="pull-right text-muted">
+            <small>
+                <span title="Еще не прочитано" class="glyphicon glyphicon-comment"></span>
+                {{ message.viewCreatedAt }}
+            </small>
+        </div>
+        <div class="content">{{ message.content|dualize_bbcode(['link']) }}</div>
+    </div>
+</li>

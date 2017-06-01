@@ -1,0 +1,689 @@
+/* General */
+html, body {
+    height: 100%;
+}
+.loading {
+    min-width: 25px;
+    min-height: 25px;
+    background: url('../img/circle_loading.gif') no-repeat 50% 50%;
+}
+.form-horizontal .form-group .form-group {
+    margin: 0;
+}
+
+/* Wrapper */
+#wrap {
+    height: auto;
+    margin: 0 auto -52px;
+    min-height: 100%;
+    padding: 0 0 50px;
+}
+#wrap .container, #footer .container {
+    max-width: 970px;
+}
+#wrap label {
+    font-weight: normal;
+}
+
+/* Navbar */
+#wrap .navbar-brand {
+    width: 139px;
+    height: 50px;
+    margin: 0;
+    background: url('../img/logo.png') no-repeat 0 50%;
+}
+#wrap .navbar-collapse .navbar-nav.navbar-right:last-child{
+    margin-right: 0;
+}
+#wrap .navbar-collapse .navbar-nav.navbar-right:first-child{
+    margin-right: -15px;
+}
+.navbar-icon {
+    margin: -12px 10px -12px 0;
+    width: 36px;
+    height: 36px;
+}
+.navbar .glyphicon {
+    margin-right: 3px;
+}
+.navbar .dropdown-menu.login-form {
+    min-width: 230px;
+    padding: 15px;
+    right: 0;
+    left: auto;
+}
+.navbar .message-counter {
+    background-color: #A94442;
+}
+
+/* Footer */
+#footer {
+    background-color: #F8F8F8;
+    height: 50px;
+    border: 1px solid #E7E7E7;
+    border-radius: 4px;
+}
+#footer .text-muted {
+    margin: 15px 0;
+}
+
+/* Login */
+.forgot-password {
+    display: inline-block;
+    margin-left: 10px;
+}
+.login-with {
+    margin: 0 0 10px;
+}
+.login-with a {
+    color: #fff;
+    display: inline-block;
+    border-radius: 7px;
+    line-height: 32px;
+    text-decoration: none;
+    padding: 0 10px;
+}
+.login-with a:before {
+    content: '';
+    display: inline-block;
+    width: 22px;
+    height: 22px;
+    vertical-align: middle;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+}
+.login-with .vkontakte {
+    background-color: #4F759A;
+}
+.login-with .vkontakte:before {
+    background-image: url('../img/vkontakte.png');
+}
+.login-with .facebook {
+    background-color: #3A5796;
+}
+.login-with .facebook:before {
+    background-image: url('../img/facebook.png');
+}
+.login-with a:hover, .login-with a:focus {
+    opacity: 0.9;
+    text-decoration: none;
+    color: #fff;
+}
+.login .login-with a {
+    border-radius: 4px;
+    line-height: 28px;
+    font-size: 0.9em;
+    width: 100%;
+    margin-top: 5px;
+}
+.login .login-with a:before {
+    width: 18px;
+    height: 18px;
+}
+
+/* Registration */
+.registration-accept, .registration-website {
+    display: none;
+}
+
+/* User search */
+.select2-results .location-select {
+    overflow: hidden;
+}
+.select2-results .location-select .name {
+    float: left;
+    margin-right: 80px;
+}
+.select2-results .location-select .area {
+    font-size: 0.8em;
+    clear: both;
+}
+.select2-results .location-select .type {
+    float: right;
+    width: 80px;
+    text-align: right;
+    color: #ccc;
+    font-size: 0.8em;
+}
+.select2-results .select2-result:hover .type {
+    color: #eee;
+}
+.found-applicants .img-thumbnail {
+    margin-right: 15px;
+}
+.found-applicants > div {
+    margin-bottom: 25px;
+    text-align: left;
+}
+.found-applicants .pagination {
+    margin: 0;
+    display: block;
+    text-align: center;
+    clear: both;
+}
+.found-applicants .pagination > ul {
+    display: inline-block;
+}
+.found-applicants .list-group-item-heading {
+    margin-top: 5px;
+}
+
+/* Profile view */
+.modal .modal-body .carousel-control {
+    background-image: none;
+    outline: none;
+    width: 30%;
+}
+.carousel-control .glyphicon {
+    background: none #ccc;
+    border-radius: 5px;
+    padding: 7px 9px 12px;
+}
+.modal .carousel-control .glyphicon-chevron-left {
+    left: 0;
+    right: auto;
+}
+.modal .carousel-control .glyphicon-chevron-right {
+    right: 0;
+    left: auto;
+}
+.modal .carousel-inner img {
+    margin: 0 auto;
+}
+.modal .carousel-inner > .item > img {
+    max-height: 100%;
+}
+#photos.modal .modal-dialog {
+    width: auto;
+    max-width: 80%;
+}
+#new-profile-message .modal-body.loading {
+    height: 100px;
+}
+#new-profile-message textarea {
+    height: 100px;
+}
+.user-profile a.thumbnail, .user-profile .img-thumbnail {
+    display: inline-block;
+    margin-bottom: 30px;
+}
+.user-profile a.all-photos {
+    display: block;
+    margin-top: 8px;
+}
+.user-profile .user-name {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #A94442;
+}
+.user-profile .info > .row div {
+    margin-bottom: 4px;
+    word-wrap: break-word;
+}
+.user-profile .info > .row div:first-child {
+    text-align: right;
+    color: #777;
+    border-right: 1px solid #ccc;
+}
+.user-profile .info div + .breadcrumb {
+    margin-top: 20px;
+}
+.user-profile .last-visit {
+    padding-top: 10px;
+    text-align: right;
+}
+.user-profile .last-visit small {
+    color: #777;
+}
+
+/* Profile edit */
+.birthday-label label {
+    text-align: right;
+    width: 100%;
+    padding-right: 0;
+}
+.city-select .location {
+    font-size: 0.8em;
+}
+/* Profile photos */
+.profile_images {
+    position: relative;
+    overflow: hidden;
+}
+.profile_images:before {
+    content: " ";
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 97px;
+    left: 4px;
+    background: url('../img/avatar_sign.png') no-repeat 50% 50%;
+    z-index: 1;
+}
+.profile_images .thumb, .profile_images .sortable-placeholder {
+    width: 90px;
+    height: 120px;
+    display: block;
+    float: left;
+    border: 2px dashed transparent;
+    cursor: move;
+}
+.profile_images .sortable-placeholder {
+    border-color: #F5CECE;
+}
+.profile_images .sortable-dragging {
+    cursor: move;
+}
+.profile_images .img_loading{
+    background: url('../img/circle_loading.gif') no-repeat 50% 50%;
+}
+.profile_images .thumb img {
+    border: 1px solid #DDDDDD;
+    border-radius: 4px;
+    display: inline-block;
+    height: auto;
+    max-width: 100%;
+    padding: 4px;
+}
+.profile_images .thumb {
+    position: relative;
+}
+.profile_images .delete, .profile_images .deleting{
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    top: 0;
+    right: 0;
+}
+.profile_images .delete{
+    cursor: pointer;
+    background: url('../img/delete_button.png') no-repeat 50% 50%;
+}
+.profile_images .delete, .profile_images .thumb.img_loading:hover .delete{
+    display: none;
+}
+.profile_images .thumb:hover .delete{
+    display: block;
+}
+.profile_images .deleting{
+    background: url('../img/circle_loading.gif') no-repeat 50% 50%;
+    background-size: 18px 18px;
+}
+.upload label, .upload .uploading {
+    display: block;
+    width: 150px;
+    height: 34px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: 15px 0;
+}
+.upload label:hover {
+    background-color: #ebebeb;
+    border-color: #adadad;
+}
+.upload .uploading{
+    background: url('../img/line_loading.gif') no-repeat 50% 50%;
+    display: none;
+}
+.upload .form-group{
+    margin: 0;
+}
+.upload label{
+    text-align: center;
+    line-height: 34px;
+    cursor: pointer;
+}
+.upload input[type="file"]{
+    display: none;
+}
+
+/* Messages page */
+body.messages-page {
+    padding-top: 51px;
+}
+.messages-page #footer {
+    display: none;
+}
+.messages-page .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+.messages-page #wrap {
+    padding-bottom: 0;
+    height: 100%;
+}
+.messages-page #wrap > .container {
+    height: 100%;
+}
+.messages-page #wrap > .container > .panel {
+    margin-bottom: 0;
+    border-radius: 0;
+    border-top: 0;
+    border-bottom: 0;
+    min-height: 100%;
+    position: relative;
+}
+.messages-page #wrap > .container > .panel:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 41.5%;
+    border-left: 1px solid #DDDDDD;
+}
+.messages-page #wrap > .container > .panel > .panel-body {
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.messages-page .dialogs, .messages-page .messages {
+    padding-top: 15px;
+}
+.messages-page .dialogs h4, .messages-page .messages .message-list h4 {
+    position: fixed;
+    margin-top: -15px;
+    padding-top: 25px;
+    padding-bottom: 5px;
+    background: #FFFFFF;
+    z-index: 1;
+}
+.messages-page .dialogs > .media-list {
+    overflow-y: auto;
+    position: fixed;
+    margin-top: 40px;
+}
+.messages-page .messages-form {
+    background: #FFFFFF;
+    bottom: 0;
+    padding: 5px 0 10px;
+    position: fixed;
+    z-index: 1;
+}
+.messages-page .messages-form button {
+    padding: 4px 8px;
+}
+.messages-page .messages-form .form-group {
+    margin-bottom: 10px;
+}
+.messages-page .messages .scrollable {
+    padding-top: 40px;
+}
+.messages-page .dialogs > div {
+    margin-top: 40px;
+}
+
+/* Dialogs */
+.dialogs .media-body {
+    margin: 5px 10px 0 0;
+}
+.dialogs .media .glyphicon-comment {
+    display: none;
+}
+.dialogs .media.new .glyphicon-comment {
+    display: inline;
+    color: #A94442;
+}
+.dialogs .media .list-group-item {
+    cursor: pointer;
+}
+.dialogs .media .list-group-item:hover {
+    background-color: #F5F5F5;
+}
+.dialogs .media.active .list-group-item {
+    border-color: #428bca;
+}
+.dialogs > .media-list > .media {
+    margin: 5px 0 15px;
+}
+.dialogs .media-list {
+    font-size: 0.9em;
+}
+.dialogs .user-name {
+    font-weight: bold;
+}
+/* Messages */
+.messages .media-list {
+    font-size: 0.9em;
+}
+.messages .user-name {
+    font-weight: bold;
+}
+.messages .glyphicon {
+    cursor: pointer;
+}
+.messages .img-rounded {
+    width: 36px;
+}
+.messages .control-label {
+    display: none;
+}
+.messages textarea.form-control, .messages button.btn {
+    font-size: 1em;
+}
+.messages .new {
+    background: #F7F7F9;
+}
+.messages .media {
+    padding: 5px;
+    margin-top: 5px;
+}
+.messages .media.sent + .sent:not(.separated) > a, .messages .media.recieved + .recieved:not(.separated) > a,
+.messages .media.sent + .sent:not(.separated) > img, .messages .media.recieved + .recieved:not(.separated) > img,
+.messages .media.sent + .sent:not(.separated) .user-name, .messages .media.recieved + .recieved:not(.separated) .user-name {
+    display: none; /* hide info about user when he has few messages one by one, except dynamically loaded */
+}
+.messages .media.sent + .sent:not(.separated) .content, .messages .media.recieved + .recieved:not(.separated) .content {
+    padding-left: 46px;
+    clear: none;
+}
+.messages .content {
+    clear: both;
+}
+.messages .media-body small {
+    margin-left: 10px;
+}
+.messages .media .glyphicon-comment {
+    display: none;
+}
+.messages .media.new .glyphicon-comment {
+    display: inline;
+}
+.messages .user-is-typing {
+    display: none;
+    padding-left: 20px;
+    color: #777;
+    font-style: italic;
+    font-size: 0.9em;
+    background: url('../img/typing.gif') no-repeat 0 50%;
+}
+/* Main page */
+.homepage .forum-posts .media-body {
+    margin: 8px 0;
+}
+.homepage .forum-posts .media-body iframe,
+.homepage .forum-posts .media-body img {
+    max-width: 100%;
+}
+.homepage .forum-posts .user-name {
+    font-weight: bold;
+}
+.homepage .forum-posts .topic-title {
+    font-style: italic;
+    margin-left: 50px;
+}
+.homepage .forum-posts .media {
+    margin-top: 18px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: transparent;
+    transition: background-color 2s;
+}
+.homepage .forum-posts .media:first-child {
+    padding-top: 15px;
+    border-top: 1px solid #ddd;
+}
+.homepage .forum-posts .media.new {
+    background-color: #EDE2A6;
+}
+.homepage .forum-posts .post-controls {
+    text-align: right;
+    border-top: 1px dashed #ddd;
+    margin-top: 10px;
+    padding-top: 10px;
+}
+.homepage .forum-posts .reply-form:not(:empty) {
+    margin-top: 10px;
+}
+.homepage .forum-posts .reply-form label {
+    display: none;
+}
+.homepage .forum-posts .reply-form button {
+    padding: 4px 8px;
+    margin-right: 5px;
+}
+.homepage .forum-posts .reply-form .form-group {
+    margin-bottom: 10px;
+}
+.homepage .forum-feed {
+    border-right: 1px dotted #ddd;
+}
+.homepage .whoisonline a {
+    margin: 0 5px 5px 0;
+}
+.homepage .whoisonline span {
+    color: #428bca;
+    border-bottom: 1px dashed;
+    cursor: pointer;
+}
+.homepage .whoisonline span:hover {
+    color: #2a6496;
+}
+
+/* Forum */
+#forums-index tr td:first-child a {
+    font-weight: bold;
+}
+#forums-index tr td:first-child {
+    padding-left: 20px;
+    min-width: 50%;
+}
+#forums-index tr.active td:first-child {
+    padding-left: 10px;
+}
+#forum tr td:first-child {
+    width: 60%;
+}
+#forum .topic-title {
+    font-size: 1.1em;
+}
+#forum tr td {
+    font-size: 0.9em;
+}
+#forum .topic-starter {
+    color: #999;
+}
+#forum tr td:first-child {
+    width: 50%;
+}
+#topic tr td:first-child {
+    width: 20%;
+}
+#topic.table tbody > tr > td {
+    padding: 20px 8px 20px 12px;
+    border-right: 1px solid #ddd;
+}
+#topic tr:last-child td {
+    border-bottom: 1px solid #ddd;
+}
+#topic .well a {
+    font-weight: bold;
+}
+#topic .well .pull-left, #topic .well .list-unstyled {
+    clear: both;
+}
+#forum form label,
+#topic form label {
+    display: none;
+}
+#forum form .modal label,
+#topic form .modal label {
+    display: block;
+}
+#forum form textarea,
+#topic form textarea {
+    min-height: 7em;
+}
+#forum .navigation,
+#topic .navigation {
+    margin: 20px 0;
+}
+#forum .navigation .pagination span, #forum .navigation a, #forum .navigation button,
+#topic .navigation .pagination span, #topic .navigation a, #topic .navigation button {
+    padding: 3px 10px;
+}
+#forum .navigation .pagination,
+#topic .navigation .pagination {
+    float: right;
+    margin: 0;
+}
+#forum .navigation h4,
+#topic .navigation h4 {
+    display: inline-block;
+    margin: 0;
+    vertical-align: bottom;
+}
+#topic .post {
+    position: relative;
+    margin: 0;
+    border-top: 1px solid #DDD;
+    border-bottom: 1px solid #DDD;
+}
+#topic .post + .post {
+    border-top: 0;
+}
+#topic .post .well {
+    margin: 0;
+    border-top: 0;
+    border-bottom: 0;
+    border-radius: 0;
+    padding: 15px;
+}
+#topic .post .message {
+    padding-bottom: 50px;
+}
+#topic .post .message iframe,
+#topic .post .message img {
+    max-width: 100%;
+}
+#topic .content {
+    position: static;
+    padding-top: 15px;
+    padding-right: 0;
+}
+#topic .post .meta {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    left: 25%;
+    height: 40px;
+    line-height: 40px;
+    padding-left: 10px;
+    border-top: 1px dashed #DDD;
+}
+#topic .post .meta a,
+#topic .post button + button, 
+#topic .subactions button + button,
+#forum .subactions button + button {
+    margin-left: 5px;
+}
+#topic .subactions {
+    margin-bottom: 10px;
+}
+#forum .subactions .alert, #forum .subactions .confirm-action,
+#topic .subactions .alert, #topic .subactions .confirm-action {
+    display: none;
+}
+#topic .yashare-auto-init {
+    display: inline-block;
+}

@@ -1,0 +1,52 @@
+{% set post = item[0] %}
+<div id="p{{ post.id }}" class="post row">
+    <div class="well col-sm-3">
+        {% if post.poster %}
+        <a href="{{ path('profile_view', {id: post.poster.id}) }}" class="user-name pull-left">{{ post.poster.name }}</a>
+        <a href="{{ path('profile_view', { 'id': post.poster.id }) }}" class="thumbnail pull-left">
+            {% if post.poster.photos|first %}
+            <img src="{{ post.poster.photos|first.fullPath|imagine_filter('avatar') }}" />
+            {% else %}
+            <img src="{{ 'bundles/dualizeuser/img/no_photo.png'|imagine_filter('avatar') }}" />
+            {% endif %}
+        </a>
+        {% else %}
+        <span class="user-name pull-left">Пользователь удален</span>
+        <img src="{{ 'bundles/dualizeuser/img/no_photo.png'|imagine_filter('avatar') }}" class="img-thumbnail pull-left" />
+        {% endif %}
+
+        {% if post.poster %}
+            <ul class="list-unstyled">
+                {% if post.poster.profile.sociotype %}
+                    <li>{{ post.poster.profile.sociotype.title }}</li>
+                {% endif %}
+
+                <li>Сообщений: {{ item[1] }}</li>
+            </ul>
+        {% endif %}
+    </div>
+    <div class="content col-sm-9">
+        <div class="message">
+            {{ post.content|dualize_bbcode }}
+        </div>
+        <div class="meta">
+            <div class="pull-left text-muted">
+                {{ post.createdAt|localizeddate('none', 'none', null, null, 'd.MM.Y в HH:mm') }}
+
+                {% if is_granted('ROLE_MODERATOR') %}
+                <label><input type="checkbox"> Отметить</label>
+                {% endif %}
+            </div>
+            <div class="pull-right">
+                <a href="#p{{ post.id }}" title="Ссылка на сообщение">#{{ loop.index + (app.request.get('page') - 1) * per_page  }}</a>
+
+                {% if is_granted('ROLE_MODERATOR') or (post.createdAt > date('-' ~ edit_time and post.poster == app.user))%}
+                <a href="#edit-post" data-action-url="{{ path('forum_post_edit', { id: post.id }) }}">Изменить</a>
+                {% endif %}
+
+                <a href="#reply">Ответить</a>
+                <a href="#quote">Цитата</a>
+            </div>
+        </div>
+    </div>
+</div>

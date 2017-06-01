@@ -1,0 +1,30 @@
+<div class="view-messages" data-message-counter="{{ message_counter }}">
+    {% if dialog.users.count == 1 %}
+        <h4>Диалог с удаленным пользователем</h4>
+    {% else %}
+        {% for recipient in dialog.users if recipient != user %}
+            <h4><a href="{{ path('profile_view', { 'id': recipient.id }) }}">{{ recipient.name }}</a> | просмотр сообщений</h4>
+        {% endfor %}
+    {% endif %}
+
+    <div class="scrollable">
+        <ul class="media-list">
+            <li class="loader"></li>
+            {% for message in messages %}
+                {% include 'DualizeUserMessageBundle:Message:message.html.twig' %}
+            {% endfor %}
+        </ul>
+    </div>
+    
+    {% if dialog.users.count != 1 %}
+        {% for recipient in dialog.users if recipient != user %}
+            <div class="user-is-typing" data-recipient-id="{{ recipient.id }}">{{ recipient.name }} печатает сообщение...</div>
+        {% endfor %}
+    {% endif %}
+                
+    {% if form %}
+        <div class="messages-form">
+            {{ form(form) }}
+        </div>
+    {% endif %}
+</div>

@@ -1,0 +1,41 @@
+{% extends 'DualizeUserBundle::layout.html.twig' %}
+
+{% block title %}Сообщения{% endblock %}
+
+{% block body_classes %}messages-page{% endblock %}
+
+{% block content %}
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		messagesInit(
+            '{{ path('messages') }}',
+            '{{ path('message_new') }}',
+            '{{ path('mark_read') }}'
+        );
+	});
+</script>
+
+<div class="row">
+	<div class="dialogs col-xs-5">
+		<h4>Диалоги</h4>
+        {% if dialogs|length == 0 %}
+            <div>Список диалогов пуст. Для начала общения с кем-либо из участников сайта перейдите на его страничку и отправьте сообщение</div>
+        {% else %}
+            <ul class="media-list">
+                {% for dialog in dialogs %}
+                    {% include 'DualizeUserMessageBundle:Message:dialog.html.twig' %}
+                {% endfor %}
+            </ul>
+        {% endif %}
+	</div>
+    <div class="messages col-xs-7">
+        <div class="message-info">
+            <h4>Сообщения</h4>
+            <div>Для просмотра сообщений выберите диалог</div>
+        </div>
+        <div class="message-list"></div>
+    </div>
+</div>
+
+{% endblock %}

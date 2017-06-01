@@ -1,0 +1,39 @@
+{% extends 'DualizeUserBundle::layout.html.twig' %}
+
+{% block title %}Регистрация на сайте{% endblock %}
+
+{% block content %}
+
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-4">
+            <h4>Регистрация на сайте</h4>
+            {% if message is defined %}
+                <p>Вы успешно зарегистрированы. По электронной почте вам отправлен пароль для входа на сайт. Изменить его можно в настройках аккаунта после входа.</p>
+                <p><a href="{{ path('login') }}">Войти на сайт</a></p>
+            {% else %}
+            </div>
+
+            <div class="col-sm-6 col-sm-offset-2">
+                <div class="text-right">
+                    {% include 'DualizeUserBundle:User:login_with.html.twig' %}
+                </div>
+
+                <p class="text-center">или</p>
+
+                {# Wrapped to divs to hide prevent spam field - website #}
+                {{ form_start(form, { 'style': 'horizontal', 'col_size': 'sm', 'label_col': 4, 'widget_col': 8 }) }}
+                {{ form_errors(form, { 'global_errors': true }) }}
+
+                {{ form_row(form.email) }}
+                {{ form_row(form.name) }}
+                
+                {{ form_row(form.recaptcha) }}
+
+                {{ form_row(form.register) }}
+                {{ form_end(form) }}
+
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

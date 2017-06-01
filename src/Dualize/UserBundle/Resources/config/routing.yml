@@ -1,0 +1,87 @@
+# All paths are prefixed by "/" in /app/config/routing.yml
+# Defaults
+home:
+  path: /
+  defaults: { _controller: DualizeUserBundle:Page:index }
+  
+whoisonline:
+  path: /whoisonline
+  defaults: { _controller: DualizeUserBundle:User:whoIsOnline }
+
+# Authorization
+login:
+    path:	/login
+    defaults:  { _controller: DualizeUserBundle:User:login }
+
+login_check:
+    path:   /login_check
+    # Firewall will automatically catch and process any form submitted to this URL
+
+logout:
+    path:     /logout
+    # Firewall takes care of logout
+  
+register:
+    path:     /register
+    defaults: { _controller: DualizeUserBundle:User:register }
+
+restore:
+    path:     /restore
+    defaults: { _controller: DualizeUserBundle:User:restore }
+  
+restore_confirm:
+    path:     /restore/{code}
+    defaults: { _controller: DualizeUserBundle:User:restoreConfirm }
+    requirements:
+        code: '[a-z0-9]{32}'
+  
+# Profile
+profile_view:
+  path:	/user/{id}
+  defaults: { _controller: DualizeUserBundle:Profile:view }
+  requirements:
+    id:	\d+
+
+profile_edit:
+  path:	/user/{id}/edit
+  defaults: { _controller: DualizeUserBundle:Profile:edit }
+  requirements:
+    id:	\d+
+    
+profile_edit_city:
+  path:	/user/{id}/edit/city
+  defaults: { _controller: DualizeUserBundle:Profile:editCity }
+  requirements:
+    id:	\d+
+    
+profile_photo:
+  path:	/user/{id}/photo
+  defaults: { _controller: DualizeUserBundle:Profile:photo }
+  requirements:
+    id:	\d+
+    
+profile_photo_upload:
+  path:	/user/{id}/photo_upload
+  defaults: { _controller: DualizeUserBundle:Profile:photoUpload }
+  requirements:
+    id:	\d+
+    
+profile_photo_position:
+  path:	/user/{id}/photo_position
+  defaults: { _controller: DualizeUserBundle:Profile:photoPosition }
+  requirements:
+    id:	\d+
+    
+profile_photo_delete:
+  path:	/user/{id}/photo_delete/{imageName}
+  defaults: { _controller: DualizeUserBundle:Profile:photoDelete }
+  requirements:
+    id:	\d+
+    # May be filled or empty (when adding with ajax)
+    imageName: \w+_jpg|
+
+profile_options:
+  path:	/user/{id}/options
+  defaults: { _controller: DualizeUserBundle:Profile:options }
+  requirements:
+    id:	\d+

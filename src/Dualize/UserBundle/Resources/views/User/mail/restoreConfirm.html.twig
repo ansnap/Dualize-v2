@@ -1,0 +1,8 @@
+{% extends 'DualizeUserBundle::layout_mail.html.twig' %}
+
+{% block content %}
+{{ name }}, Ваш пароль на сайте {{ site_name }} был успешно изменен!
+
+Для входа используйте новый пароль: {{ password }}
+Изменить его Вы можете в настройках аккаунта.
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'DualizeForumBundle::layout.html.twig' %}
+
+{% block title %}{{ forum.title }}{% endblock %}
+
+{% block content %}
+
+    <div id="forum">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('forums_index') }}">Форум</a></li>
+            <li><strong>{{ forum.title }}</strong></li>
+        </ol>
+
+        <div class="navigation">
+            <a href="#topic_new_title" class="btn btn-primary">Новая тема</a>
+
+            {% if is_granted('ROLE_MODERATOR') %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-loading-text="Обработка запроса..." autocomplete="off">
+                        Опции раздела <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#move-topics" data-action-url="{{ path('forum_topics_move') }}">Переместить темы</a></li>
+                        <li><a href="#delete-topics" data-action-url="{{ path('forum_topics_delete') }}">Удалить темы</a></li>
+                    </ul>
+                </div>
+            {% endif %}
+
+            {{ knp_pagination_render(topics) }}
+        </div>
+
+        {% if is_granted('ROLE_MODERATOR') %}
+            <div class="subactions">
+                <div class="alert alert-warning">
+                    <button type="button" class="close">&times;</button>
+                    <span></span>
+                </div>
+
+                <div class="confirm-action">
+                    <p>Вы действительно желаете <span></span>?</p>
+                    <button type="button" class="btn btn-danger" data-loading-text="Выполнение..." autocomplete="off">Выполнить</button>
+                    <button type="button" class="btn btn-default">Отмена</button>
+                </div>
+
+                <div class="extra-action"></div>
+            </div>
+        {% endif %}
+
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Тема</th>
+                    <th>Последнее сообщение</th>
+                    <th>Ответов</th>
+                    {% if is_granted('ROLE_MODERATOR') %}<th>Модерация</th>{% endif %}
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in topics %}
+                    {% set topic = item[0] %}
+                        <tr id="t{{ topic.id }}" class="topic">
+                            <td>
+                                <a href="{{ path('forum_topic', {'id': topic.id}) }}" class="topic-title">{{ topic.title }}</a> <br>
+                                {% if topic.posts|last.poster %}
+                                    <a href="{{ path('profile_view', {id: topic.posts|last.poster.id}) }}" class="topic-starter">
+                                        {{ topic.posts|last.poster.name }}
+                                    </a>
+                                {% else %}
+                                    <span>Пользователь удален</span>
+                                {% endif %}
+                            </td>
+                            <td>
+                                {{ topic.posts|first.createdAt|localizeddate('none', 'none', null, null, 'd.MM.Y в HH:mm') }} 
+                                <a href="{{ path('forum_topic_last_post', {id: topic.id}) }}" title="К последнему сообщению">
+                                    <span class="glyphicon glyphicon-share-alt"></span>
+                                </a><br>
+                                от 
+                                {% if topic.posts|first.poster %}
+                                    <a href="{{ path('profile_view', {id: topic.posts|first.poster.id}) }}">{{ topic.posts|first.poster.name }}</a>
+                                {% else %}
+                                    <span>Пользователь удален</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ item[1] - 1 }}</td>
+                            {% if is_granted('ROLE_MODERATOR') %}
+                                <td>
+                                    <label><input type="checkbox"> Отметить</label>
+                                </td>
+                            {% endif %}
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                    <div class="navigation">
+                        <h4>Новая тема</h4>
+                        {{ knp_pagination_render(topics) }}
+                    </div>
+
+                    {% include 'DualizeForumBundle:Post:post_form.html.twig' %}
+                </div>
+
+                {% endblock %}
+

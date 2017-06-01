@@ -1,0 +1,84 @@
+{% extends 'DualizeForumBundle::layout.html.twig' %}
+
+{% set topic = posts|first[0].topic %}
+
+{% block title %}{{ topic.title }}{% endblock %}
+
+{% block head %}
+    {{ parent() }}
+    
+    {# For Yandex share #}
+    <meta property="og:url" content="{{ url('forum_topic', {id: topic.id}) }}" />
+    <meta property="og:title" name="title" content="{{ topic.title }}" />
+    <meta property="og:description" name="description" content="{{ posts|first[0].content|dualize_bbcode_excerpt(500)|dualize_bbcode([''])|replace({'<br />': ''}) }}" />
+    {% set image_src = app.request.schemeAndHttpHost ~ asset('bundles/dualizeuser/img/sub/social_thumbnail.jpg') %}
+    <meta property="og:image" content="{{ image_src }}" />
+    <link rel="image_src" href="{{ image_src }}" />
+{% endblock %}
+
+{% block content %}
+
+    <div id="topic">
+        <ol class="breadcrumb">
+            <li><a href="{{ path('forums_index') }}">Форум</a></li>
+            <li><a href="{{ path('forum_view', {id: topic.forum.id}) }}">{{ topic.forum.title }}</a></li>
+            <li><strong>{{ topic.title }}</strong></li>
+        </ol>
+
+        <div class="navigation">
+            <a href="#post_content" class="btn btn-primary">Ответить</a>
+
+            {% if is_granted('ROLE_MODERATOR') %}
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-loading-text="Обработка запроса..." autocomplete="off">
+                        Опции темы <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#rename-topic" data-action-url="{{ path('forum_topic_rename', {id: topic.id}) }}">Изменить название</a></li>
+                        <li><a href="#move-topic" data-action-url="{{ path('forum_topic_move', {id: topic.id}) }}">Переместить тему</a></li>
+                        <li><a href="#delete-topic" data-action-url="{{ path('forum_topic_delete', {id: topic.id}) }}">Удалить тему</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#delete-posts" data-action-url="{{ path('forum_posts_delete') }}">Удалить сообщения</a></li>
+                    </ul>
+                </div>
+            {% endif %}
+
+            <script type="text/javascript" src="//yandex.st/share/share.js" charset="utf-8"></script>
+            <div class="yashare-auto-init" data-yashareL10n="ru"
+                 data-yashareQuickServices="vkontakte,facebook,twitter,odnoklassniki,moimir,gplus" data-yashareTheme="counter"
+                 ></div> 
+
+            {{ knp_pagination_render(posts) }}
+        </div>
+
+        {% if is_granted('ROLE_MODERATOR') %}
+            <div class="subactions">
+                <div class="alert alert-warning">
+                    <button type="button" class="close">&times;</button>
+                    <span></span>
+                </div>
+
+                <div class="confirm-action">
+                    <p>Вы действительно желаете <span></span>?</p>
+                    <button type="button" class="btn btn-danger" data-loading-text="Выполнение..." autocomplete="off">Выполнить</button>
+                    <button type="button" class="btn btn-default">Отмена</button>
+                </div>
+
+                <div class="extra-action"></div>
+            </div>
+        {% endif %}
+
+        {% for item in posts %}
+            {% include 'DualizeForumBundle:Post:post.html.twig' %}
+        {% endfor %}
+
+        <div class="navigation">
+            <h4>Ваш ответ</h4>
+            {{ knp_pagination_render(posts) }}
+        </div>
+
+        {% include 'DualizeForumBundle:Post:post_form.html.twig' %}
+    </div>
+
+{% endblock %}
+

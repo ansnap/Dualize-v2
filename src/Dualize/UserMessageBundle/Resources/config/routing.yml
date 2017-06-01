@@ -1,0 +1,31 @@
+dialogs:
+    pattern:	/messages
+    defaults:	{ _controller: DualizeUserMessageBundle:Message:viewDialogs }
+    
+messages:
+    pattern:	/messages/{id}/{offset}
+    defaults:	{ _controller: DualizeUserMessageBundle:Message:viewMessages, id: '', offset: '' }
+    requirements:
+      id:	\d+
+      offset:	\d+
+      
+message_new:
+    # id - dialog
+    pattern:	/messages/new/{id}
+    defaults:	{ _controller: DualizeUserMessageBundle:Message:newMessage, id: '' }
+    requirements:
+      id:	\d+
+      
+messages_profile_new:
+    # id - recipient (user)
+    pattern:	/messages/profile_new/{id}
+    defaults:	{ _controller: DualizeUserMessageBundle:Message:newProfileMessage }
+    requirements:
+      id:	\d+
+      
+mark_read:
+    pattern:	/messages/mark_read/{dialog_id}
+    defaults:	{ _controller: DualizeUserMessageBundle:Message:markAsRead, dialog_id: '' }
+    requirements:
+      dialog_id:	\d+
+    

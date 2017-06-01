@@ -1,0 +1,9 @@
+{% if form %}
+    {{ form(form) }}
+{% else %}
+<div>
+    Для возможности участия в обсуждениях 
+    <a href="{{ path('login') }}">войдите на сайт</a> или 
+    <a href="{{ path('register') }}">зарегистрируйтесь</a>
+</div>
+{% endif %}

@@ -1,0 +1,16 @@
+{% extends 'DualizeBaseUserBundle::layout_mail.html.twig' %}
+
+{% block content %}
+    <p>
+        {{ name }}, Вы получили {{ message_count == 1 ? 'новое личное сообщение' : 'новые личные сообщения' }} 
+        на сайте {{ site_name }} от:
+    </p>
+
+    <p>
+        {% for sender in senders %}
+            <a href="{{ url('profile_view', {'id': sender.id}) }}">{{ sender.name }}</a>{{ loop.last ? '' : ', ' }}
+        {% endfor %}
+    </p>
+
+    <p>Перейти к сообщениям - <a href="{{ url('dialogs') }}">{{ url('dialogs') }}</a></p>
+{% endblock %}

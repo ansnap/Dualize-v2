@@ -1,0 +1,12 @@
+parameters:
+#    dualize_user_message.example.class: Dualize\UserMessageBundle\Example
+
+services:
+#    dualize_user_message.example:
+#        class: %dualize_user_message.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]
+    dualize_user_message.message:
+        class: Dualize\UserMessageBundle\EventListener\MessageSubscriber
+        arguments: ['@service_container']
+        tags:
+            - { name: doctrine.event_subscriber }

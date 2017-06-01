@@ -1,0 +1,27 @@
+{% macro view(form_class = '', last_email = '', redirect = false) %}
+    <div class="login">
+        {% include 'DualizeUserBundle:User:login_with.html.twig' %}
+
+        <p class="text-center">или</p>
+
+        <form action="{{ path('login_check') }}" method="post" class="{{ form_class }}" role="form">
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" id="email" name="_email" {% if last_email %}value="{{ last_email }}"{% endif %} class="form-control">
+            </div>
+            <div class="form-group">
+                <label for="password">Пароль</label>
+                <input type="password" id="password" name="_password" class="form-control">
+            </div>
+
+            {% if redirect %}
+                {{ app.session.set('_security.main.target_path', app.request.uri) }}
+            {% endif %}
+
+            <button type="submit" class="btn btn-primary">Войти</button>
+
+            <a class="forgot-password" href="{{ path('restore') }}">Забыли пароль?</a>
+        </form>
+    </div>
+
+{% endmacro %}

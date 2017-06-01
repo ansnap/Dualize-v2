@@ -1,0 +1,56 @@
+{% extends 'DualizeUserBundle::layout.html.twig' %}
+
+{% block head %}
+	{{ parent() }}
+	{% include 'DualizeUserBundle::includes/select2_include.html.twig' %}
+{% endblock %}
+
+{% block title %}Редактирование профиля{% endblock %}
+
+{% block content %}
+
+<script type="text/javascript" src="{{ asset('bundles/dualizeuser/js/profile_edit.js') }}"></script>
+
+<script type="text/javascript">
+	$(document).ready(function() {
+		profileEditInit(
+			'{{ path('profile_edit_city', { 'id': user.id }) }}',
+			'{% if user.profile.city %}{{ user.profile.city.name }}{% endif %}',
+			'{% if user.profile.city %}{{ user.profile.city.country.name }}{% endif %}'
+		);
+	});
+</script>
+
+{{ form_start(form, { 'style': 'horizontal', 'col_size': 'sm'}) }}
+	<div class="row">
+		<div class="col-sm-8 col-sm-offset-1">
+			<div class="row">
+				<div class="col-sm-8 col-sm-offset-4">
+					<h4>Редактирование профиля</h4>
+					{{ form_errors(form, { 'global_errors': true }) }}
+					{% include 'BraincraftedBootstrapBundle::flash.html.twig' %}
+				</div>
+			</div>
+				
+			{{ form_row(form.name, { 'label_col': 4, 'widget_col': 8 }) }}
+			{{ form_row(form.profile.gender, { 'label_col': 4, 'widget_col': 8 }) }}
+			
+			<div class="form-group row">
+				<div class="col-sm-4 birthday-label">{{ form_label(form.profile.birthday) }}</div>
+				<div class="col-sm-8">
+					<div class="row">
+						<div class="col-sm-3">{{ form_widget(form.profile.birthday.day) }}</div>
+						<div class="col-sm-5">{{ form_widget(form.profile.birthday.month) }}</div>
+						<div class="col-sm-4">{{ form_widget(form.profile.birthday.year) }}</div>
+					</div>
+				</div>
+			</div>
+				
+			{{ form_row(form.profile.city, { 'label_col': 4, 'widget_col': 8 }) }}
+			{{ form_row(form.profile.sociotype, { 'label_col': 4, 'widget_col': 8 }) }}
+			{{ form_row(form.save, { 'label_col': 4, 'widget_col': 8 }) }}
+		</div>
+	</div>
+{{ form_end(form) }}
+
+{% endblock %}

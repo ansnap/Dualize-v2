@@ -1,0 +1,11 @@
+/app/bootstrap*
+/app/cache/*
+/app/logs/*
+/app/config/parameters.yml*
+/vendor/
+/web/*/*
+/nbproject/
+/bin/*
+/*~
+/composer.lock
+/sources/

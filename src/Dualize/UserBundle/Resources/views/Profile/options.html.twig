@@ -1,0 +1,57 @@
+{% extends 'DualizeUserBundle::layout.html.twig' %}
+
+{% block title %}Настройки аккаунта{% endblock %}
+
+{% block content %}
+
+    {{ form_start(form, { 'style': 'horizontal', 'col_size': 'sm', 'label_col': 4, 'widget_col': 8}) }}
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-1">
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-4">
+                    <h4>Настройки аккаунта</h4>
+                    {{ form_errors(form, { 'global_errors': true }) }}
+                    {% include 'BraincraftedBootstrapBundle::flash.html.twig' %}
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-4 text-right">Email</div>
+                <div class="col-sm-8">{{ app.user.email }}</div>
+            </div>
+
+            {{ form_row(form.plainPassword) }}
+            {{ form_row(form.options) }}
+            {{ form_row(form.save) }}
+
+            <div class="row">
+                <div class="col-sm-8 col-sm-offset-4">
+                    <h4>Социальные сети</h4>
+                    <p class="text-muted">Для подключения социальных сетей к аккаунту, email-адрес должен совпадать. Иначе будет создан новый аккаунт</p>
+                </div>
+
+                <div class="col-sm-4 text-right">ВКонтакте</div>
+                <div class="col-sm-8">
+                    {% if app.user.profile.vkontakteId %}
+                        <span class="text-success">Подключен</span>
+                        (<a href="http://vk.com/id{{ app.user.profile.vkontakteId }}" target="_blank">Ссылка</a>)
+                    {% else %}
+                        <a href="{{ hwi_oauth_login_url('vkontakte') }}">Подключить</a>
+                    {% endif %}
+                </div>
+
+                <div class="col-sm-4 text-right">Facebook</div>
+                <div class="col-sm-8">                   
+                    {% if app.user.profile.facebookId %}
+                        <span class="text-success">Подключен</span>
+                        (<a href="http://facebook.com/{{ app.user.profile.facebookId }}" target="_blank">Ссылка</a>)
+                    {% else %}
+                        <a href="{{ hwi_oauth_login_url('facebook') }}">Подключить</a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+    {{ form_end(form) }}
+
+{% endblock %}

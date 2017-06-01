@@ -1,0 +1,35 @@
+<li class="media {{ last_post is defined and last_post == post ? 'last' }}">
+    <div class="pull-right text-muted">{{ post.createdAt|localizeddate('none', 'none', null, null, 'd.MM.Y в HH:mm') }}</div>
+
+    {% if post.poster %}
+        <a href="{{ path('profile_view', { 'id': post.poster.id }) }}" class="pull-left">
+            {% if post.poster.photos|first %}
+                <img src="{{ post.poster.photos|first.fullPath|imagine_filter('icon') }}" class="img-rounded" />
+            {% else %}
+                <img src="{{ 'bundles/dualizeuser/img/no_photo.png'|imagine_filter('icon') }}" class="img-rounded" />
+            {% endif %}
+        </a>
+        <a href="{{ path('profile_view', { 'id': post.poster.id }) }}" class="user-name">{{ post.poster.name }}</a><br>
+    {% else %}
+        <img src="{{ 'bundles/dualizeuser/img/no_photo.png'|imagine_filter('icon') }}" class="img-rounded pull-left" />
+        <span class="user-name">Пользователь удален</span><br>
+    {% endif %}
+
+    <div class="topic-title text-muted">
+        Тема - 
+        <a href="{{ path('forum_topic', { 'id': post.topic.id }) }}" title="Перейти к теме">
+            {{ post.topic.title }}
+        </a>
+    </div>
+
+    <div class="media-body">
+        {{ post.content|dualize_bbcode }}
+    </div>
+
+    <div class="post-controls">
+        <a href="#reply" data-action-url="{{ path('forum_post_create', { 'id': post.topic.id }) }}">Ответить</a> /
+        <a href="{{ path('forum_post', { 'id': post.id }) }}">Перейти к теме</a>
+    </div>
+
+    <div class="reply-form"></div>
+</li>

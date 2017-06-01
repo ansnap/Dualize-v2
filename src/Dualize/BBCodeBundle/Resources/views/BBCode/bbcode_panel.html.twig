@@ -1,0 +1,251 @@
+
+{# BBCode panel #}
+
+<div id="bbcode-panel">
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group btn-group-sm">
+        {% if 'b' in btn %}
+            <button title="Полужирный" type="button" class="btn btn-default" data-open="b" data-close="/b">
+                <span class="glyphicon glyphicon-bold"></span>
+            </button>
+        {% endif %}
+
+        {% if 'i' in btn %}
+            <button title="Курсив" type="button" class="btn btn-default" data-open="i" data-close="/i">
+                <span class="glyphicon glyphicon-italic"></span>
+            </button>
+        {% endif %}
+
+        {% if 'u' in btn %}
+            <button title="Подчеркнутый" type="button" class="btn btn-default" data-open="u" data-close="/u">
+                <span class="glyphicon glyphicon-font" style="text-decoration: underline;"></span>
+            </button>
+        {% endif %}
+
+        {% if 's' in btn %}
+            <button title="Зачеркнутый" type="button" class="btn btn-default" data-open="s" data-close="/s">
+                <span class="glyphicon glyphicon-font" style="text-decoration: line-through;"></span>
+            </button>
+        {% endif %}
+
+        {% if 'center' in btn %}
+            <button title="По центру" type="button" class="btn btn-default" data-open="center" data-close="/center">
+                <span class="glyphicon glyphicon-align-center"></span>
+            </button>
+        {% endif %}
+
+        {% if 'size' in btn %}
+            <div class="size btn-group btn-group-sm">
+                <button title="Размер" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-text-height"></span>
+                    <span class="caret"></span>
+                </button>
+
+                <div class="list dropdown-menu" role="menu" data-open="size=" data-close="/size">
+                    <span data-value="1" class="bbcode-size-1">Очень маленький</span>
+                    <span data-value="2" class="bbcode-size-2">Маленький</span>
+                    <span data-value="3" class="bbcode-size-3">Нормальный</span>
+                    <span data-value="4" class="bbcode-size-4">Большой</span>
+                    <span data-value="5" class="bbcode-size-5">Очень большой</span>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if 'color' in btn %}
+            <div class="color btn-group btn-group-sm">
+                <button title="Цвет" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-adjust"></span>
+                    <span class="caret"></span>
+                </button>
+
+                <div class="dropdown-menu" role="menu" data-open="color=" data-close="/color">
+                    <span class="auto">Авто</span>
+
+                    <span style="background:#000000"></span>
+                    <span style="background:#444444"></span>
+                    <span style="background:#666666"></span>
+                    <span style="background:#999999"></span>
+                    <span style="background:#b6b6b6"></span>
+                    <span style="background:#cccccc"></span>
+                    <span style="background:#d8d8d8"></span>
+                    <span style="background:#efefef"></span>
+                    <span style="background:#f4f4f4"></span>
+                    <span style="background:#ffffff"></span>
+
+                    <div class="delimeter"></div>	
+
+                    <span style="background:#f4cccc"></span>
+                    <span style="background:#dbb0a7"></span>
+                    <span style="background:#fce5cd"></span>
+                    <span style="background:#fff2cc"></span>
+                    <span style="background:#d9ead3"></span>
+                    <span style="background:#d0e0e3"></span>
+                    <span style="background:#c9daf8"></span>
+                    <span style="background:#cfe2f3"></span>
+                    <span style="background:#d9d2e9"></span>
+                    <span style="background:#ead1dc"></span>
+                    <span style="background:#ea9999"></span>
+                    <span style="background:#dd7e6b"></span>
+                    <span style="background:#f9cb9c"></span>
+                    <span style="background:#ffe599"></span>
+                    <span style="background:#b6d7a8"></span>
+                    <span style="background:#a2c4c9"></span>
+                    <span style="background:#a4c2f4"></span>
+                    <span style="background:#9fc5e8"></span>
+                    <span style="background:#b4a7d6"></span>
+                    <span style="background:#d5a6bd"></span>
+                    <span style="background:#e06666"></span>
+                    <span style="background:#cc4125"></span>
+                    <span style="background:#f6b26b"></span>
+                    <span style="background:#ffd966"></span>
+                    <span style="background:#93c47d"></span>
+                    <span style="background:#76a5af"></span>
+                    <span style="background:#6d9eeb"></span>
+                    <span style="background:#6fa8dc"></span>
+                    <span style="background:#8e7cc3"></span>
+                    <span style="background:#c27ba0"></span>
+                    <span style="background:#cc0000"></span>
+                    <span style="background:#a61c00"></span>
+                    <span style="background:#e69138"></span>
+                    <span style="background:#f1c232"></span>
+                    <span style="background:#6aa84f"></span>
+                    <span style="background:#45818e"></span>
+                    <span style="background:#3c78d8"></span>
+                    <span style="background:#3d85c6"></span>
+                    <span style="background:#674ea7"></span>
+                    <span style="background:#a64d79"></span>
+                    <span style="background:#900000"></span>
+                    <span style="background:#85200C"></span>
+                    <span style="background:#B45F06"></span>
+                    <span style="background:#BF9000"></span>
+                    <span style="background:#38761D"></span>
+                    <span style="background:#134F5C"></span>
+                    <span style="background:#1155Cc"></span>
+                    <span style="background:#0B5394"></span>
+                    <span style="background:#351C75"></span>
+                    <span style="background:#741B47"></span>
+                    <span style="background:#660000"></span>
+                    <span style="background:#5B0F00"></span>
+                    <span style="background:#783F04"></span>
+                    <span style="background:#7F6000"></span>
+                    <span style="background:#274E13"></span>
+                    <span style="background:#0C343D"></span>
+                    <span style="background:#1C4587"></span>
+                    <span style="background:#073763"></span>
+                    <span style="background:#20124D"></span>
+                    <span style="background:#4C1130"></span>
+                </div>
+            </div>
+        {% endif %}
+        </div>
+
+        <div class="btn-group btn-group-sm">
+        {% if 'img' in btn %}
+            <button title="Загрузить изображение" type="button" class="btn btn-default" data-toggle="modal" data-target="#bbcode-image-modal">
+                <span class="glyphicon glyphicon-picture"></span>
+            </button>
+
+            <div id="bbcode-image-modal" class="modal fade" tabindex="-1" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Загрузка изображения</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p class="text-danger"></p>
+                            <button type="button" class="btn btn-primary" data-loading-text="Загрузка..." autocomplete="off">Выбрать файл</button>
+                            <input type="file" name="image"></input>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+
+        {% if 'url' in btn %}
+            <button title="Ссылка" type="button" class="btn btn-default" data-toggle="modal" data-target="#bbcode-url-modal">
+                <span class="glyphicon glyphicon-link"></span>
+            </button>
+
+            <div class="modal fade" id="bbcode-url-modal" tabindex="-1" role="dialog">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title">Вставка ссылки</h4>
+                        </div>
+
+                        <div class="modal-body">
+                            <p class="text-danger"></p>
+                            <div class="form-group">
+                                <label for="bbcode-url-address">Адрес ссылки</label>
+                                <input type="text" id="bbcode-url-address" class="form-control"></input>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="bbcode-url-text">Отображаемый текст</label>
+                                <input type="text" id="bbcode-url-text" class="form-control"></input>
+                            </div>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="confirm btn btn-primary">Вставить</button>
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        </div>
+
+        <div class="btn-group btn-group-sm">
+        {% if 'quote' in btn %}
+            <button title="Цитата" type="button" class="btn btn-default" data-open="quote" data-close="/quote">
+                <span class="glyphicon glyphicon-comment"></span>
+            </button>
+        {% endif %}
+
+        {% if 'smile' in btn %}
+            <div class="smileys btn-group btn-group-sm">
+                <button title="Смайлы" type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <span class="glyphicon glyphicon-user"></span>
+                    <span class="caret"></span>
+                </button>
+
+                <div class="dropdown-menu" role="menu">
+                    <span data-value=":)" class="bbcode-smileys-smile"></span>
+                    <span data-value=":(" class="bbcode-smileys-sad"></span>
+                    <span data-value=":D" class="bbcode-smileys-laugh"></span>
+                    <span data-value=":O" class="bbcode-smileys-shock"></span>
+                    <span data-value=":P" class="bbcode-smileys-playful"></span>
+                    <span data-value=":/" class="bbcode-smileys-skeptical"></span>
+                    <span data-value=":|" class="bbcode-smileys-straight"></span>
+                </div>
+            </div>
+        {% endif %}
+        </div>
+
+    {% if 'preview' in btn %}
+        <div class="btn-group btn-group-sm pull-right">
+            <button type="button" class="preview btn btn-default" data-toggle="button" data-loading-text="Загрузка" autocomplete="off">
+                Просмотр
+            </button>
+        </div>
+    {% endif %}
+    </div>
+
+    <div id="bbcode-preview"></div>
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(this).on('focus', 'textarea', function() {
+            $(this).bbcode_panel(
+                    '{{ path('bbcode_upload_image') }}',
+                    '{{ path('bbcode_preview') }}'
+                    );
+        });
+    });
+</script>

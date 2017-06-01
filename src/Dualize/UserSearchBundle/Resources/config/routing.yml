@@ -1,0 +1,7 @@
+user_search:
+    path:      /search/users
+    defaults:  { _controller: DualizeUserSearchBundle:Search:view }
+
+user_search_select_location:
+  path:	/search/users/location
+  defaults: { _controller: DualizeUserSearchBundle:Search:location }

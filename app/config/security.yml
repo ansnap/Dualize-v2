@@ -1,0 +1,44 @@
+security:
+    firewalls:
+        main:
+            pattern:	^/
+            anonymous:	~
+            form_login:
+                login_path:	login
+                check_path:	login_check
+                # field names for the username and password fields
+                username_parameter: _email
+                password_parameter: _password
+                #use_referer:	true
+            logout:
+                path:	/logout
+                target:	/
+            remember_me:
+                key: a75pHn34 # Random key
+                lifetime: 31536000 # 1 year in seconds
+                path:	/
+                domain:	~
+                always_remember_me: true
+            oauth:
+                resource_owners:
+                    vkontakte:           "/login/check-vkontakte"
+                    facebook:           "/login/check-facebook"
+                login_path:        /login
+                use_forward:       false
+                failure_path:      /login
+
+                oauth_user_provider:
+                    service: dualize_user.oauth_user_provider
+    providers:
+        main:
+            entity:
+                class: Dualize\UserBundle\Entity\User
+                property: email
+    encoders:
+        Dualize\UserBundle\Entity\User:
+            algorithm: sha1
+            iterations: 1
+            encode_as_base64: false
+    role_hierarchy:
+        ROLE_MODERATOR:	ROLE_USER
+        ROLE_ADMIN:	[ROLE_MODERATOR, ROLE_ALLOWED_TO_SWITCH]

@@ -1,0 +1,22 @@
+<h4>
+    Сейчас на сайте<br>
+    <small>
+        {% set count = users|length %}
+        {% transchoice count %}
+        1 участник|%count% участника|%count% участников
+        {% endtranschoice %}
+    </small>
+</h4>
+<div class="clearfix">
+    {% for user in users %}
+        <a href="{{ path('profile_view', { 'id': user.id }) }}" class="pull-left {{ loop.index > 18 ? 'hidden' : '' }}">
+            <img src="{{ (user.photos|first ? user.photos|first.fullPath : 'bundles/dualizeuser/img/no_photo.png')|imagine_filter('icon') }}" 
+                 title="<b>{{ user.name }}</b>{{ user.profile.sociotype ? '<br><small>' ~ user.profile.sociotype.title ~ '</small>' }}" 
+                 data-html="true" alt="{{ user.name }}" class="img-rounded">
+        </a>    
+    {% endfor %}
+
+    {% if count > 18 %}
+        <span>Показать всех</span>
+    {% endif %}
+</div>

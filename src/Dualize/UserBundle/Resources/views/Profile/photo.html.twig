@@ -1,0 +1,48 @@
+{% extends 'DualizeUserBundle::layout.html.twig' %}
+
+{% block title %}Управление фотографиями{% endblock %}
+
+{% block content %}
+
+{% javascripts 
+	'bundles/dualizeuser/js/jquery.sortable.js'
+	'bundles/dualizeuser/js/profile_photo.js' %}
+	<script type="text/javascript" src="{{ asset_url }}"></script>
+{% endjavascripts %}
+	
+<script type="text/javascript">
+	$(document).ready(function() {
+		profilePhotoInit(
+			'{{ path('profile_photo_upload', { 'id': user.id }) }}',
+			10,
+			'{{ path('profile_photo_position', { 'id': user.id }) }}',
+			'{{ path('profile_photo_delete', { 'id': user.id, 'imageName': '' }) }}'
+		);
+	});
+</script>
+
+<div class="row">
+	<div class="col-sm-6 col-sm-offset-3">
+		<h4>Мои фотографии</h4>
+		<div class='profile_images'>
+		{% for photo in photos %}
+			<div class="thumb">
+				<img src="{{ photo.fullPath | imagine_filter('profile') }}" />
+				<div class="delete"></div>
+			</div>
+		{% endfor %}
+		</div>
+		<!-- Container for ajax uploaded images -->
+		<div class="thumb img_loading" style="display:none;">
+			<div class="delete"></div>
+		</div>
+
+		<div class="upload">
+			{{ form(form) }}
+			<div class="uploading"></div>
+			<div class="errors"></div>
+		</div>
+	</div>
+</div>
+
+{% endblock %}
